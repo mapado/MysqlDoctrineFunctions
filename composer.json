@@ -1,0 +1,19 @@
+{
+    "name": "mapado/mysql-doctrine-functions",
+    "description": "Provides the `RAND()` and `ROUND()` MySQL functions for Doctrine2.",
+    "keywords": ["mapado", "mysql", "doctrine", "function"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Julien Deniau",
+            "email": "julien.deniau@mapado.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": ">=2.2.0"
+    },
+    "autoload": {
+        "psr-0": { "Mapado\\MysqlDoctrineFunctions": "" }
+    },
+    "target-dir": "Mapado/MysqlDoctrineFunctions"
+}
