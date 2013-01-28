@@ -55,3 +55,14 @@ doctrine:
                     rand: Mapado\MysqlDoctrineFunctions\DQL\MysqlRand
                     round: Mapado\MysqlDoctrineFunctions\DQL\MysqlRound
 ```
+
+### Usage
+You can now use the functions in your DQL Query
+
+```php
+$query = 'SELECT RAND(), ROUND(123.45) 
+        FROM ...
+    ';
+$em->createQuery($query);
+
+```
