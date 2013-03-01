@@ -1,7 +1,15 @@
 MySQL Doctrine functions
 ====================
 
-This library provides you MySQL `RAND()` and `ROUND()` functions for Doctrine2.
+This library provides you MySQL functions for Doctrine2.
+
+At the moment are supported
+
+ - RAND
+ - ROUND
+ - DATE
+ - DATE_FORMAT
+
 Feel free to fork and add other functions.
 
 ## Installation
@@ -51,9 +59,13 @@ doctrine:
         default:
             # ...
             dql:
-                string_functions:
+                numeric_functions:
                     rand: Mapado\MysqlDoctrineFunctions\DQL\MysqlRand
                     round: Mapado\MysqlDoctrineFunctions\DQL\MysqlRound
+                datetime_functions:
+                    date: Mapado\MysqlDoctrineFunctions\DQL\MysqlDate
+                    date_format: Mapado\MysqlDoctrineFunctions\DQL\MysqlDateFormat
+                # ... add all functions you need
 ```
 
 ### Usage
