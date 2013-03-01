@@ -59,12 +59,13 @@ doctrine:
         default:
             # ...
             dql:
-                string_functions:
+                numeric_functions:
                     rand: Mapado\MysqlDoctrineFunctions\DQL\MysqlRand
                     round: Mapado\MysqlDoctrineFunctions\DQL\MysqlRound
+                datetime_functions:
                     date: Mapado\MysqlDoctrineFunctions\DQL\MysqlDate
                     date_format: Mapado\MysqlDoctrineFunctions\DQL\MysqlDateFormat
-                    # ... add here all functions you need
+                # ... add all functions you need
 ```
 
 ### Usage
