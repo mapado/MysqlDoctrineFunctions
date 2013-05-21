@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>MysqlDoctrineFunctions by mapado</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>MysqlDoctrineFunctions</h1>
+        <h2>MySQL Function for Doctrine : RAND(), ROUND() DATE(), DATE_FORMAT()</h2>
+        <a href="https://github.com/mapado/MysqlDoctrineFunctions" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>MySQL Doctrine functions</h1>
+
+<p>This library provides you MySQL functions for Doctrine2.</p>
+
+<p>At the moment are supported</p>
+
+<ul>
+<li>RAND</li>
+<li>ROUND</li>
+<li>DATE</li>
+<li>DATE_FORMAT</li>
+</ul><p>Feel free to fork and add other functions.</p>
+
+<h2>Installation</h2>
+
+<h3>Get the bundle</h3>
+
+<p>Add this in your composer.json</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">"require"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"mapado/mysql-doctrine-functions"</span><span class="p">:</span> <span class="s2">"dev-master"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>and then run</p>
+
+<div class="highlight"><pre>php composer.phar update
+</pre></div>
+
+<p>or </p>
+
+<div class="highlight"><pre>composer update
+</pre></div>
+
+<p>if you installed composer globally.</p>
+
+<h3>Add the classes to your configuration</h3>
+
+<div class="highlight"><pre><span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Doctrine\ORM\Configuration</span><span class="p">();</span>
+<span class="nv">$config</span><span class="o">-&gt;</span><span class="na">addCustomStringFunction</span><span class="p">(</span><span class="s1">'rand'</span><span class="p">,</span> <span class="s1">'Mapado\MysqlDoctrineFunctions\DQL\MysqlRand'</span><span class="p">);</span>
+<span class="nv">$config</span><span class="o">-&gt;</span><span class="na">addCustomStringFunction</span><span class="p">(</span><span class="s1">'round'</span><span class="p">,</span> <span class="s1">'Mapado\MysqlDoctrineFunctions\DQL\MysqlRound'</span><span class="p">);</span>
+
+<span class="nv">$em</span> <span class="o">=</span> <span class="nx">EntityManager</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="nv">$dbParams</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span>
+</pre></div>
+
+<h3>Use with Symfony2</h3>
+
+<p>If you install the library in a Symfony2 application, you can add this in your config.yml</p>
+
+<div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">doctrine</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">orm</span><span class="p-Indicator">:</span>
+    <span class="c1"># ...</span>
+    <span class="l-Scalar-Plain">entity_managers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
+            <span class="c1"># ...</span>
+            <span class="l-Scalar-Plain">dql</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">numeric_functions</span><span class="p-Indicator">:</span>
+                    <span class="l-Scalar-Plain">rand</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mapado\MysqlDoctrineFunctions\DQL\MysqlRand</span>
+                    <span class="l-Scalar-Plain">round</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mapado\MysqlDoctrineFunctions\DQL\MysqlRound</span>
+                <span class="l-Scalar-Plain">datetime_functions</span><span class="p-Indicator">:</span>
+                    <span class="l-Scalar-Plain">date</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mapado\MysqlDoctrineFunctions\DQL\MysqlDate</span>
+                    <span class="l-Scalar-Plain">date_format</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Mapado\MysqlDoctrineFunctions\DQL\MysqlDateFormat</span>
+                <span class="c1"># ... add all functions you need</span>
+</pre></div>
+
+<h3>Usage</h3>
+
+<p>You can now use the functions in your DQL Query</p>
+
+<div class="highlight"><pre><span class="nv">$query</span> <span class="o">=</span> <span class="s1">'SELECT RAND(), ROUND(123.45) </span>
+<span class="s1">        FROM ...</span>
+<span class="s1">    '</span><span class="p">;</span>
+<span class="nv">$em</span><span class="o">-&gt;</span><span class="na">createQuery</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+
+</pre></div>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/mapado/MysqlDoctrineFunctions/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/mapado/MysqlDoctrineFunctions/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/mapado/MysqlDoctrineFunctions"></a> is maintained by <a href="https://github.com/mapado">mapado</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
