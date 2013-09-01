@@ -10,7 +10,7 @@ use \Doctrine\ORM\Query\Lexer;
  * @uses FunctionNode
  * @author Simone Fumagalli - www.iliveinperego.com
  */
-class MysqlDate extends FunctionNode
+class MysqlDateFormat extends FunctionNode
 {
     
     /*
