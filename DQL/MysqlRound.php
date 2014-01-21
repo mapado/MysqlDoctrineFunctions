@@ -21,6 +21,14 @@ class MysqlRound extends FunctionNode
     public $simpleArithmeticExpression;
 
     /**
+     * roundPrecission
+     * 
+     * @var mixed
+     * @access public
+     */
+    public $roundPrecission;
+
+    /**
      * getSql
      *
      * @param \Doctrine\ORM\Query\SqlWalker $sqlWalker
@@ -30,9 +38,8 @@ class MysqlRound extends FunctionNode
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
         return 'ROUND(' .
-                $sqlWalker->walkSimpleArithmeticExpression(
-                    $this->simpleArithmeticExpression
-                ) .
+                $sqlWalker->walkSimpleArithmeticExpression($this->simpleArithmeticExpression) .','.
+                $sqlWalker->walkStringPrimary($this->roundPrecission)
         ')';
     }
 
@@ -49,7 +56,9 @@ class MysqlRound extends FunctionNode
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
 
         $this->simpleArithmeticExpression = $parser->SimpleArithmeticExpression();
-
+        $parser->match(Lexer::T_COMMA);
+        $this->roundPrecission = $parser->ArithmeticExpression();
+        
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
 }
