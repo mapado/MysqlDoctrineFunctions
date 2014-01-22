@@ -58,6 +58,7 @@ class MysqlRound extends FunctionNode
         $this->simpleArithmeticExpression = $parser->SimpleArithmeticExpression();
         $parser->match(Lexer::T_COMMA);
         $this->roundPrecission = $parser->ArithmeticExpression();
+	if ($this->roundPrecission == null) $this->roundPrecission = 0;
         
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
