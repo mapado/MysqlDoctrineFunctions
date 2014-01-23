@@ -6,7 +6,7 @@ use \Doctrine\ORM\Query\Lexer;
 
 /**
  * MysqlRound
- * 
+ *
  * @uses FunctionNode
  * @author Julien DENIAU <jdeniau.externe@mapado.com>
  */
@@ -14,7 +14,7 @@ class MysqlRound extends FunctionNode
 {
     /**
      * simpleArithmeticExpression
-     * 
+     *
      * @var mixed
      * @access public
      */
@@ -22,7 +22,7 @@ class MysqlRound extends FunctionNode
 
     /**
      * roundPrecission
-     * 
+     *
      * @var mixed
      * @access public
      */
@@ -58,8 +58,10 @@ class MysqlRound extends FunctionNode
         $this->simpleArithmeticExpression = $parser->SimpleArithmeticExpression();
         $parser->match(Lexer::T_COMMA);
         $this->roundPrecission = $parser->ArithmeticExpression();
-	if ($this->roundPrecission == null) $this->roundPrecission = 0;
-        
+        if ($this->roundPrecission == null) {
+            $this->roundPrecission = 0;
+        }
+
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
 }
