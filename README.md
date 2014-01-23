@@ -21,7 +21,7 @@ Add this in your composer.json
 ```json
 {
 	"require": {
-		"mapado/mysql-doctrine-functions": "dev-master"
+		"mapado/mysql-doctrine-functions": "dev"
 	}
 }
 ```
