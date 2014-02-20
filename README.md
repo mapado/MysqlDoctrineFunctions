@@ -57,18 +57,18 @@ If you install the library in a Symfony2 application, you can add this in your c
 # app/config/config.yml
 doctrine:
     orm:
-    # ...
-    entity_managers:
-        default:
-            # ...
-            dql:
-                numeric_functions:
-                    rand:        Mapado\MysqlDoctrineFunctions\DQL\MysqlRand
-                    round:       Mapado\MysqlDoctrineFunctions\DQL\MysqlRound
-                datetime_functions:
-                    date:        Mapado\MysqlDoctrineFunctions\DQL\MysqlDate
-                    date_format: Mapado\MysqlDoctrineFunctions\DQL\MysqlDateFormat
-                # ... add all functions you need
+        # ...
+        entity_managers:
+            default:
+                # ...
+                dql:
+                    numeric_functions:
+                        rand:        Mapado\MysqlDoctrineFunctions\DQL\MysqlRand
+                        round:       Mapado\MysqlDoctrineFunctions\DQL\MysqlRound
+                    datetime_functions:
+                        date:        Mapado\MysqlDoctrineFunctions\DQL\MysqlDate
+                        date_format: Mapado\MysqlDoctrineFunctions\DQL\MysqlDateFormat
+                    # ... add all functions you need
 ```
 
 ### Usage
