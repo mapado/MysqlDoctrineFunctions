@@ -39,7 +39,7 @@ class MysqlRound extends FunctionNode
     {
         return 'ROUND(' .
                 $sqlWalker->walkSimpleArithmeticExpression($this->simpleArithmeticExpression) .','.
-                $sqlWalker->walkStringPrimary($this->roundPrecission)
+                $sqlWalker->walkStringPrimary($this->roundPrecission) .
         ')';
     }
 
