@@ -1,6 +1,6 @@
 {
     "name": "mapado/mysql-doctrine-functions",
-    "description": "Provides the `RAND()` and `ROUND()` MySQL functions for Doctrine2.",
+    "description": "MySQL Function for Doctrine : RAND(), ROUND() DATE(), DATE_FORMAT()...",
     "keywords": ["mapado", "mysql", "doctrine", "function"],
     "license": "MIT",
     "authors": [
