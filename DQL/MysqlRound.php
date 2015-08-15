@@ -1,8 +1,10 @@
 <?php
 namespace Mapado\MysqlDoctrineFunctions\DQL;
 
+use Doctrine\ORM\Query\AST\ArithmeticExpression;
 use \Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use \Doctrine\ORM\Query\Lexer;
+use \Doctrine\ORM\Query\QueryException;
 
 /**
  * MysqlRound
@@ -21,12 +23,12 @@ class MysqlRound extends FunctionNode
     public $simpleArithmeticExpression;
 
     /**
-     * roundPrecission
+     * roundPrecision
      *
      * @var mixed
      * @access public
      */
-    public $roundPrecission;
+    public $roundPrecision;
 
     /**
      * getSql
@@ -37,10 +39,11 @@ class MysqlRound extends FunctionNode
      */
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        return 'ROUND(' .
-                $sqlWalker->walkSimpleArithmeticExpression($this->simpleArithmeticExpression) .','.
-                $sqlWalker->walkStringPrimary($this->roundPrecission) .
-        ')';
+        return sprintf(
+            'ROUND(%s, %s)',
+            $sqlWalker->walkSimpleArithmeticExpression($this->simpleArithmeticExpression),
+            (is_null($this->roundPrecision) ? 0 : $sqlWalker->walkStringPrimary($this->roundPrecision))
+        );
     }
 
     /**
@@ -56,10 +59,12 @@ class MysqlRound extends FunctionNode
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
 
         $this->simpleArithmeticExpression = $parser->SimpleArithmeticExpression();
-        $parser->match(Lexer::T_COMMA);
-        $this->roundPrecission = $parser->ArithmeticExpression();
-        if ($this->roundPrecission == null) {
-            $this->roundPrecission = 0;
+
+        try {
+            $parser->match(Lexer::T_COMMA);
+            $this->roundPrecision = $parser->ArithmeticExpression();
+        } catch(QueryException $e) {
+            // ROUND() is being used without round precision
         }
 
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
