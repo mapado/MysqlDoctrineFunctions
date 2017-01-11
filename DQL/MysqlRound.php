@@ -10,7 +10,7 @@ use \Doctrine\ORM\Query\QueryException;
  * MysqlRound
  *
  * @uses FunctionNode
- * @author Julien DENIAU <jdeniau.externe@mapado.com>
+ * @author Julien DENIAU <julien.deniau@mapado.com>
  */
 class MysqlRound extends FunctionNode
 {

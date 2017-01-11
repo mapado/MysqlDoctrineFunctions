@@ -6,9 +6,9 @@ use \Doctrine\ORM\Query\Lexer;
 
 /**
  * MysqlRand
- * 
+ *
  * @uses FunctionNode
- * @author Julien DENIAU <jdeniau.externe@mapado.com>
+ * @author Julien DENIAU <julien.deniau@mapado.com>
  */
 class MysqlRand extends FunctionNode
 {
