@@ -14,44 +14,29 @@ Feel free to fork and add other functions.
 
 ## Installation
 
-### Get the bundle
+### Get the package
 
-Add this in your composer.json
-
-```json
-{
-	"require": {
-		"mapado/mysql-doctrine-functions": "1.*"
-	}
-}
-```
-
-and then run
+With [composer](https://getcomposer.org/)
 
 ```sh
-php composer.phar update
+composer require mapado/mysql-doctrine-functions
 ```
-or 
-```sh
-composer update
-```
-if you installed composer globally.
 
 ### Add the classes to your configuration
 
 ```php
 $config = new \Doctrine\ORM\Configuration();
-$config->addCustomStringFunction('rand', 'Mapado\MysqlDoctrineFunctions\DQL\MysqlRand');
-$config->addCustomStringFunction('round', 'Mapado\MysqlDoctrineFunctions\DQL\MysqlRound');
-$config->addCustomStringFunction('date', 'Mapado\MysqlDoctrineFunctions\DQL\MysqlDate');
-$config->addCustomStringFunction('date_format', 'Mapado\MysqlDoctrineFunctions\DQL\MysqlDateFormat');
+$config->addCustomStringFunction('rand', \Mapado\MysqlDoctrineFunctions\DQL\MysqlRand::class);
+$config->addCustomStringFunction('round', \Mapado\MysqlDoctrineFunctions\DQL\MysqlRound::class);
+$config->addCustomStringFunction('date', \Mapado\MysqlDoctrineFunctions\DQL\MysqlDate::class);
+$config->addCustomStringFunction('date_format', \Mapado\MysqlDoctrineFunctions\DQL\MysqlDateFormat::class);
 
 $em = EntityManager::create($dbParams, $config);
 ```
 You can of course pick just the functions you need.
 
-### Use with Symfony2
-If you install the library in a Symfony2 application, you can add this in your config.yml
+### Use with Symfony
+If you install the library in a Symfony application, you can add this in your `config.yml` file (`doctrine.yaml` file if you use symfony flex)
 
 ```yaml
 # app/config/config.yml
@@ -63,11 +48,11 @@ doctrine:
                 # ...
                 dql:
                     numeric_functions:
-                        rand:        Mapado\MysqlDoctrineFunctions\DQL\MysqlRand
-                        round:       Mapado\MysqlDoctrineFunctions\DQL\MysqlRound
+                        rand:        'Mapado\MysqlDoctrineFunctions\DQL\MysqlRand'
+                        round:       'Mapado\MysqlDoctrineFunctions\DQL\MysqlRound'
                     datetime_functions:
-                        date:        Mapado\MysqlDoctrineFunctions\DQL\MysqlDate
-                        date_format: Mapado\MysqlDoctrineFunctions\DQL\MysqlDateFormat
+                        date:        'Mapado\MysqlDoctrineFunctions\DQL\MysqlDate'
+                        date_format: 'Mapado\MysqlDoctrineFunctions\DQL\MysqlDateFormat'
                     # ... add all functions you need
 ```
 
